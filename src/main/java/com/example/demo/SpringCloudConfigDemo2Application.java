@@ -18,6 +18,28 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.activation.DataSource;
 
+/**
+ *
+ *
+ *
+ 源码：org.springframework.cloud.config.server.config.JdbcRepositoryConfiguration
+
+ @Configuration
+ @Profile("jdbc")
+ @ConditionalOnClass(JdbcTemplate.class)
+ class JdbcRepositoryConfiguration {
+
+ @Bean
+ @ConditionalOnBean(JdbcTemplate.class)
+ public JdbcEnvironmentRepository jdbcEnvironmentRepository(
+ JdbcEnvironmentRepositoryFactory factory,
+ JdbcEnvironmentProperties environmentProperties) {
+ return factory.build(environmentProperties);
+ }
+
+ }
+ *
+ */
 @EnableDiscoveryClient
 @EnableEurekaClient
 @EnableConfigServer
@@ -39,6 +61,12 @@ public class SpringCloudConfigDemo2Application {
 		return new JdbcTemplate(dataSource);
 	}
 
+	/**
+	 *  手动注入
+	 * @param factory
+	 * @param environmentProperties
+	 * @return
+	 */
 	@Bean
 	public JdbcEnvironmentRepository jdbcEnvironmentRepository(
 			JdbcEnvironmentRepositoryFactory factory,
