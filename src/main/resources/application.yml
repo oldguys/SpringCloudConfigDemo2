@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/spring-cloud-config-demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+#        git:
+#          uri: https://github.com/forezp/SpringcloudConfig/
+#          search-paths: respo
+#          username:
+#          password:
+#          order: 1
+        jdbc:
+          order: 0
+          sql: SELECT _KEY, _VALUE from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+      label: master
